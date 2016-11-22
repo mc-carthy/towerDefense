@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public int maxEnemiesOnScreen;
 	public int totalEnemies;
 	public int enemiesPerSpawn;
+	public float spawnDelay;
 
 	private int enemiesOnScreen = 0;
 
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void Start () {
-		SpawnEnemy();
+		StartCoroutine(Spawn());
 	}
 
 	public void RemoveEnemyFromScreen () {
@@ -31,7 +33,8 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	private void SpawnEnemy () {
+
+	private IEnumerator Spawn () {
 		if (enemiesPerSpawn > 0 && enemiesOnScreen < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
 				if (enemiesOnScreen < maxEnemiesOnScreen) {
@@ -41,5 +44,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
+		yield return new WaitForSeconds(spawnDelay);
+		StartCoroutine(Spawn());
 	}
 }
