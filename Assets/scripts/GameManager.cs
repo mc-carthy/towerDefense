@@ -25,6 +25,12 @@ public class GameManager : MonoBehaviour {
 		SpawnEnemy();
 	}
 
+	public void RemoveEnemyFromScreen () {
+		if (enemiesOnScreen > 0) {
+			enemiesOnScreen--;
+		}
+	}
+
 	private void SpawnEnemy () {
 		if (enemiesPerSpawn > 0 && enemiesOnScreen < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
