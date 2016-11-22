@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour {
-
-	public static GameManager instance;
+public class GameManager : Singleton<GameManager> {
 
 	public GameObject spawnPoint;
 	public GameObject[] enemies;
@@ -13,15 +11,6 @@ public class GameManager : MonoBehaviour {
 	public float spawnDelay;
 
 	private int enemiesOnScreen = 0;
-
-	private void Awake () {
-		if (instance == null) {
-			instance = this;
-		} else if (instance != this) {
-			Destroy(gameObject);
-		}
-		DontDestroyOnLoad(gameObject);
-	}
 
 	private void Start () {
 		StartCoroutine(Spawn());
