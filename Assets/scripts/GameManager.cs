@@ -3,13 +3,18 @@ using System.Collections;
 
 public class GameManager : Singleton<GameManager> {
 
-	public GameObject spawnPoint;
-	public GameObject[] enemies;
-	public int maxEnemiesOnScreen;
-	public int totalEnemies;
-	public int enemiesPerSpawn;
-	public float spawnDelay;
-
+	[SerializeField]
+	private GameObject spawnPoint;
+	[SerializeField]
+	private GameObject[] enemies;
+	[SerializeField]
+	private int maxEnemiesOnScreen;
+	[SerializeField]
+	private int totalEnemies;
+	[SerializeField]
+	private int enemiesPerSpawn;
+	[SerializeField]
+	private float spawnDelay;
 	private int enemiesOnScreen = 0;
 
 	private void Start () {
