@@ -9,8 +9,9 @@ public class TowerManager : Singleton<TowerManager> {
 		if (Input.GetMouseButton(0)) {
 			Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
-			PlaceTower(hit);
+			if (hit.collider.tag == "buildSite") {
+				PlaceTower(hit);
+			}
 		}
 	}
 
