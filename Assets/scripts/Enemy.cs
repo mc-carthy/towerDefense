@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
 
 	private void Start () {
 		enemy = GetComponent<Transform>();
+		GameManager.Instance.RegisterEnemy(this);
 	}
 
 	private void Update () {
@@ -35,8 +36,7 @@ public class Enemy : MonoBehaviour {
 		if (other.CompareTag("checkpoint")) {
 			target++;
 		} else if (other.CompareTag("Finish")) {
-			GameManager.Instance.RemoveEnemyFromScreen();
-			Destroy(gameObject);
+			GameManager.Instance.UnregisterEnemy(this);
 		}
 	}
 }
