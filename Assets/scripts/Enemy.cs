@@ -10,16 +10,28 @@ public class Enemy : MonoBehaviour {
 	private Transform[] checkpoints;
 	[SerializeField]
 	private float navigationUpdate;
+	[SerializeField]
+	private int healthPoints;
 	private Transform enemy;
 	private float navigationTime = 0;
+	private Collider2D enemyCollider;
+	
+	private bool isDead = false;
+	public bool IsDead {
+		get {
+			return isDead;
+		}
+	}
+
 
 	private void Start () {
 		enemy = GetComponent<Transform>();
 		GameManager.Instance.RegisterEnemy(this);
+		enemyCollider = GetComponent<Collider2D>();
 	}
 
 	private void Update () {
-		if (checkpoints != null) {
+		if (checkpoints != null && !isDead) {
 			navigationTime += Time.deltaTime;
 			if (navigationTime > navigationUpdate) {
 				if (target < checkpoints.Length) {
@@ -37,6 +49,23 @@ public class Enemy : MonoBehaviour {
 			target++;
 		} else if (other.CompareTag("Finish")) {
 			GameManager.Instance.UnregisterEnemy(this);
+		} else if (other.CompareTag("projectile")) {
+			Projectile thisProjectile = other.gameObject.GetComponent<Projectile>();
+			EnemyHit(thisProjectile.AttackStrength);
+			Destroy(other.gameObject);
 		}
+	}
+
+	public void EnemyHit(int hitPoints) {
+		healthPoints -= hitPoints;
+
+		if (healthPoints <= 0) {
+			Die();
+		}
+	}
+
+	private void Die() {
+		isDead = true;
+		enemyCollider.enabled = false;
 	}
 }
