@@ -12,10 +12,11 @@ public class Enemy : MonoBehaviour {
 	private float navigationUpdate;
 	[SerializeField]
 	private int healthPoints;
-	private Transform enemy;
 	private float navigationTime = 0;
+	private Transform enemy;
 	private Collider2D enemyCollider;
-	
+	private Animator anim;
+
 	private bool isDead = false;
 	public bool IsDead {
 		get {
@@ -28,6 +29,7 @@ public class Enemy : MonoBehaviour {
 		enemy = GetComponent<Transform>();
 		GameManager.Instance.RegisterEnemy(this);
 		enemyCollider = GetComponent<Collider2D>();
+		anim = GetComponent<Animator>();
 	}
 
 	private void Update () {
@@ -58,7 +60,7 @@ public class Enemy : MonoBehaviour {
 
 	public void EnemyHit(int hitPoints) {
 		healthPoints -= hitPoints;
-
+		anim.Play("hurt");
 		if (healthPoints <= 0) {
 			Die();
 		}
@@ -66,6 +68,7 @@ public class Enemy : MonoBehaviour {
 
 	private void Die() {
 		isDead = true;
+		anim.SetTrigger("didDie");
 		enemyCollider.enabled = false;
 	}
 }
