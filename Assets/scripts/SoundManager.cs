@@ -21,55 +21,55 @@ public class SoundManager : Singleton<SoundManager> {
 	[SerializeField]
 	private AudioClip towerBuilt;
 
-	private AudioClip Arrow {
+	public AudioClip Arrow {
 		get {
 			return arrow;
 		}
 	}
 
-	private AudioClip Death {
+	public AudioClip Death {
 		get {
 			return death;
 		}
 	}
 
-	private AudioClip Fireball {
+	public AudioClip Fireball {
 		get {
 			return fireball;
 		}
 	}
 
-	private AudioClip GameOver {
+	public AudioClip GameOver {
 		get {
 			return gameOver;
 		}
 	}
 
-	private AudioClip Hit {
+	public AudioClip Hit {
 		get {
 			return hit;
 		}
 	}
 
-	private AudioClip Level {
+	public AudioClip Level {
 		get {
 			return level;
 		}
 	}
 
-	private AudioClip NewGame {
+	public AudioClip NewGame {
 		get {
 			return newGame;
 		}
 	}
 
-	private AudioClip Rock {
+	public AudioClip Rock {
 		get {
 			return rock;
 		}
 	}
 
-	private AudioClip TowerBuilt {
+	public AudioClip TowerBuilt {
 		get {
 			return towerBuilt;
 		}

@@ -68,6 +68,7 @@ public class TowerManager : Singleton<TowerManager> {
 			newTower.transform.position = hit.transform.position;
 			BuyTower(towerButtonPressed.TowerPrice);
 			RegisterTower(newTower);
+			GameManager.Instance.Source.PlayOneShot(SoundManager.Instance.TowerBuilt);
 			DisableDragSprite();
 		}
 	}

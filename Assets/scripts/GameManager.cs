@@ -60,11 +60,18 @@ public class GameManager : Singleton<GameManager> {
 	private int waveNumber;
 	private int whichEnemiesToSpawn = 0;
 	private gameStatus currentState = gameStatus.play;
+	private AudioSource source;
+	public AudioSource Source {
+		get {
+			return source;
+		}
+	}
 
 	private void Start () {
 		totalEnemies = initialTotalEnemies;
 		totalMoney = intialTotalMoney;
 		playButton.gameObject.SetActive(false);
+		source = GetComponent<AudioSource>();
 		ShowMenu();
 	}
 
@@ -133,7 +140,7 @@ public class GameManager : Singleton<GameManager> {
 		switch (currentState) {
 			case gameStatus.gameOver:
 				playButtonLabel.text = "Play Again!";
-				// Add gameOver sfx
+				Source.PlayOneShot(SoundManager.Instance.GameOver);
 				break;
 			case gameStatus.next:
 				playButtonLabel.text = "Next Wave!";
@@ -163,6 +170,7 @@ public class GameManager : Singleton<GameManager> {
 				// destroy all enemies and towers
 				totalMoneyLabel.text = TotalMoney.ToString();
 				totalEscapedLabel.text = "Escaped " + TotalEscaped.ToString() + "/" + escapedEnemiesFailureThreshold.ToString();
+				source.PlayOneShot(SoundManager.Instance.NewGame);
 				break;
 		}
 		DestroyAllEnemies();

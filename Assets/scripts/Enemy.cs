@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour {
 	public void EnemyHit(int hitPoints) {
 		healthPoints -= hitPoints;
 		anim.Play("hurt");
+		GameManager.Instance.Source.PlayOneShot(SoundManager.Instance.Hit);
 		if (healthPoints <= 0) {
 			Die();
 		}
@@ -76,6 +77,7 @@ public class Enemy : MonoBehaviour {
 		GameManager.Instance.TotalKilled++;
 		GameManager.Instance.IsWaveOver();
 		GameManager.Instance.AddMoney(rewardAmount);
+		GameManager.Instance.Source.PlayOneShot(SoundManager.Instance.Death);
 		anim.SetTrigger("didDie");
 		enemyCollider.enabled = false;
 	}
