@@ -106,6 +106,9 @@ public class GameManager : Singleton<GameManager> {
 	public void IsWaveOver () {
 		totalEscapedLabel.text = "Escaped " + TotalEscaped.ToString() + "/" + escapedEnemiesFailureThreshold.ToString();
 		if (RoundEscaped + TotalKilled == totalEnemies) {
+			if (waveNumber <= enemies.Length) {
+				whichEnemiesToSpawn = waveNumber;
+			}
 			SetCurrentGameState();
 			ShowMenu();
 		}
@@ -127,7 +130,7 @@ public class GameManager : Singleton<GameManager> {
 		if (enemiesPerSpawn > 0 && enemyList.Count < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
 				if (enemyList.Count < totalEnemies) {
-					GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
+					GameObject newEnemy = Instantiate(enemies[Random.Range(0, whichEnemiesToSpawn)]) as GameObject;
 					newEnemy.transform.position = spawnPoint.transform.position;
 				}
 			}
@@ -165,6 +168,7 @@ public class GameManager : Singleton<GameManager> {
 				totalEnemies = initialTotalEnemies;
 				TotalEscaped = 0;
 				TotalMoney = 10;
+				whichEnemiesToSpawn = 0;
 				TowerManager.Instance.DestroyAllTowers();
 				TowerManager.Instance.RenameTagsBuildSites();
 				// destroy all enemies and towers
