@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager> {
 	[SerializeField]
 	private GameObject spawnPoint;
 	[SerializeField]
-	private GameObject[] enemies;
+	private Enemy[] enemies;
 	[SerializeField]
 	private int initialTotalEnemies = 3;
 	private int totalEnemies;
@@ -130,7 +130,7 @@ public class GameManager : Singleton<GameManager> {
 		if (enemiesPerSpawn > 0 && enemyList.Count < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
 				if (enemyList.Count < totalEnemies) {
-					GameObject newEnemy = Instantiate(enemies[Random.Range(0, whichEnemiesToSpawn)]) as GameObject;
+					Enemy newEnemy = Instantiate(enemies[Random.Range(0, whichEnemiesToSpawn)]) as Enemy;
 					newEnemy.transform.position = spawnPoint.transform.position;
 				}
 			}
