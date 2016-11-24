@@ -31,7 +31,7 @@ public class GameManager : Singleton<GameManager> {
 	}
 
 	[SerializeField]
-	private int totalWaves = 10;
+	private int totalWaves = 0;
 	[SerializeField]
 	private Text currentWaveLabel;
 	[SerializeField]
@@ -158,6 +158,8 @@ public class GameManager : Singleton<GameManager> {
 				totalEnemies = initialTotalEnemies;
 				TotalEscaped = 0;
 				TotalMoney = 10;
+				TowerManager.Instance.DestroyAllTowers();
+				TowerManager.Instance.RenameTagsBuildSites();
 				// destroy all enemies and towers
 				totalMoneyLabel.text = TotalMoney.ToString();
 				totalEscapedLabel.text = "Escaped " + TotalEscaped.ToString() + "/" + escapedEnemiesFailureThreshold.ToString();
