@@ -48,8 +48,6 @@ public class GameManager : Singleton<GameManager> {
 	[SerializeField]
 	private GameObject[] enemies;
 	[SerializeField]
-	private int maxEnemiesOnScreen;
-	[SerializeField]
 	private int initialTotalEnemies = 3;
 	private int totalEnemies;
 	[SerializeField]
@@ -99,7 +97,7 @@ public class GameManager : Singleton<GameManager> {
 	}
 
 	public void IsWaveOver () {
-		totalEscapedLabel.text = "Escaped: " + TotalEscaped.ToString() + "/" + totalEnemies.ToString();
+		totalEscapedLabel.text = "Escaped " + TotalEscaped.ToString() + "/" + escapedEnemiesFailureThreshold.ToString();
 		if (RoundEscaped + TotalKilled == totalEnemies) {
 			SetCurrentGameState();
 			ShowMenu();
@@ -121,7 +119,7 @@ public class GameManager : Singleton<GameManager> {
 	private IEnumerator Spawn () {
 		if (enemiesPerSpawn > 0 && enemyList.Count < totalEnemies) {
 			for (int i = 0; i < enemiesPerSpawn; i++) {
-				if (enemyList.Count < maxEnemiesOnScreen) {
+				if (enemyList.Count < totalEnemies) {
 					GameObject newEnemy = Instantiate(enemies[0]) as GameObject;
 					newEnemy.transform.position = spawnPoint.transform.position;
 				}
@@ -162,13 +160,13 @@ public class GameManager : Singleton<GameManager> {
 				TotalMoney = 10;
 				// destroy all enemies and towers
 				totalMoneyLabel.text = TotalMoney.ToString();
-				totalEscapedLabel.text = "Escaped: " + TotalEscaped.ToString() + "/" + totalEnemies.ToString();
+				totalEscapedLabel.text = "Escaped " + TotalEscaped.ToString() + "/" + escapedEnemiesFailureThreshold.ToString();
 				break;
 		}
 		DestroyAllEnemies();
 		TotalKilled = 0;
 		RoundEscaped = 0;
-		currentWaveLabel.text = "Wave: " + (waveNumber + 1).ToString();
+		currentWaveLabel.text = "Wave " + (waveNumber + 1).ToString();
 		StartCoroutine(Spawn());
 		playButton.gameObject.SetActive(false);
 	}

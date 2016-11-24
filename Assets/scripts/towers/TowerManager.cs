@@ -26,16 +26,23 @@ public class TowerManager : Singleton<TowerManager> {
 	}
 
 	public void SelectedTower (TowerButton towerSelected) {
-		towerButtonPressed = towerSelected;
-		EnableDragSprite(towerButtonPressed.DragSprite);
+		if (towerSelected.TowerPrice <= GameManager.Instance.TotalMoney) {
+			towerButtonPressed = towerSelected;
+			EnableDragSprite(towerButtonPressed.DragSprite);
+		}
 	}
 
 	public void PlaceTower (RaycastHit2D hit) {
 		if (!EventSystem.current.IsPointerOverGameObject() && towerButtonPressed != null) {
 			GameObject newTower = Instantiate(towerButtonPressed.TowerObject);
 			newTower.transform.position = hit.transform.position;
+			BuyTower(towerButtonPressed.TowerPrice);
 			DisableDragSprite();
 		}
+	}
+
+	public void BuyTower (int price) {
+		GameManager.Instance.SubtractMoney(price);
 	}
 
 	private void FollowMouse() {
