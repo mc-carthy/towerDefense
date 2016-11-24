@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(SpriteRenderer))]
 public class TowerManager : Singleton<TowerManager> {
 
-	private TowerButton towerButtonPressed;
+	public TowerButton towerButtonPressed { get; set; }
 	private SpriteRenderer spriteRenderer;
 
 	private void Start () {
@@ -48,7 +48,7 @@ public class TowerManager : Singleton<TowerManager> {
 		spriteRenderer.sprite = sprite;
 	}
 
-	private void DisableDragSprite () {
+	public void DisableDragSprite () {
 		spriteRenderer.enabled = false;
 	}
 }

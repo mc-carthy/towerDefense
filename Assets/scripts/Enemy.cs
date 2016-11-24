@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour {
 	private float navigationUpdate;
 	[SerializeField]
 	private int healthPoints;
+	[SerializeField]
+	private int rewardAmount;
 	private float navigationTime = 0;
 	private Transform enemy;
 	private Collider2D enemyCollider;
